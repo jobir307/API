@@ -23,14 +23,16 @@ class AuthController extends Controller
             'password' => ['required', 'max:255']
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
 
         return response()->json([
-            'msg' => 'User created successfully.'
+            'msg' => 'User created successfully.',
+            'token' => $user->createToken('abdullajon')->plainTextToken,
+            'user' => $user
         ]);
     }
 

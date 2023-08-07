@@ -63,7 +63,6 @@
             submitHandler(e) {
                 e.preventDefault()
                 this.$store.dispatch('register', this.formData).then(response => {
-                    localStorage.setItem('token', response.data)
                     this.$router.push({name: "home"})
                 }).catch(error => console.log(error))
             }
