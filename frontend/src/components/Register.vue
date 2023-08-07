@@ -7,6 +7,7 @@
                         <span class="fa fa-user" aria-hidden="true"></span>
                     </div>
                     <h3 class="text-center mb-4">Register Form</h3>
+                    <validation-error :validationErrors="validationErrors"/>
                     <form class="login-form">
                         <my-input
                             class="rounded-left"
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+    import ValidationError from '@/components/ValidationError.vue'
     export default {
         data() {
             return {
@@ -54,9 +56,15 @@
                 }
             }
         },
+        components: {
+            ValidationError
+        },
         computed: {
             isLoading() {
                 return this.$store.state.auth.isLoading
+            },
+            validationErrors() {
+                return this.$store.state.auth.errors
             }
         },
         methods: {
