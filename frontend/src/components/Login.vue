@@ -7,7 +7,7 @@
                         <span class="fa fa-user" aria-hidden="true"></span>
                     </div>
                     <h3 class="text-center mb-4">Login Form</h3>
-                    <validation-error v-if="validationErrors" />
+                    <validation-error v-if="validationErrors" :validationErrors="validationErrors" />
                     <form @submit.prevent="onLogin" class="login-form">
                         <my-input 
                             v-bind:type="'email'" 
@@ -41,6 +41,7 @@
 <script>
     import { mapState } from 'vuex'
     import ValidationError from './ValidationError.vue'
+    
     export default {
         components: { ValidationError },
         data() {
@@ -55,7 +56,6 @@
         methods: {
             onLogin() {
                 this.$store.dispatch('login', this.formData).then(user => {
-                    console.log(user)
                     this.$router.push({name: "home"})
                 }).catch(error => console.log(error.response.data))
             }

@@ -69,7 +69,6 @@
         methods: {
             onRegister() {
                 this.$store.dispatch('register', this.formData).then(user => {
-                    console.log(user)
                     this.$router.push({name: "home"})
                 }).catch(error => console.log(error.response.data))
             }
