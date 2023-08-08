@@ -7,6 +7,7 @@
                         <span class="fa fa-user" aria-hidden="true"></span>
                     </div>
                     <h3 class="text-center mb-4">Login Form</h3>
+                    <validation-error v-if="validationErrors" />
                     <form @submit.prevent="onLogin" class="login-form">
                         <my-input 
                             v-bind:type="'email'" 
@@ -21,7 +22,14 @@
                             v-model="formData.password"
                         />
                         <div class="form-group">
-                            <my-button type="submit" class="btn-primary submit p-3 px-5" @click="onLogin">Login</my-button>
+                            <my-button 
+                                type="submit" 
+                                class="btn-primary submit p-3 px-5" 
+                                @click="onLogin"
+                                :disabled="isLoading"
+                            >
+                                Login
+                            </my-button>
                         </div>
                     </form>
                 </div>
@@ -31,7 +39,10 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+    import ValidationError from './ValidationError.vue'
     export default {
+        components: { ValidationError },
         data() {
             return {
                 formData: {
@@ -43,11 +54,23 @@
         },
         methods: {
             onLogin() {
-                this.$store.dispatch('login', this.formData).then(response => {
-                    localStorage.setItem('token', response.data)
+                this.$store.dispatch('login', this.formData).then(user => {
+                    console.log(user)
                     this.$router.push({name: "home"})
-                }).catch(error => console.log(error))
+                }).catch(error => console.log(error.response.data))
             }
+        },
+        computed: {
+            ...mapState({
+                isLoading: state => state.auth.isLoading,
+                validationErrors: state => state.auth.errors
+            })
+            // isLoading() {
+            //     return this.$store.state.auth.isLoading
+            // },
+            // validationErrors() {
+            //     return this.$store.state.auth.errors
+            // }
         }
     }
 </script>

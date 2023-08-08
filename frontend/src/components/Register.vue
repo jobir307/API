@@ -8,7 +8,7 @@
                     </div>
                     <h3 class="text-center mb-4">Register Form</h3>
                     <validation-error v-if="validationErrors" :validationErrors="validationErrors"/>
-                    <form class="login-form">
+                    <form class="login-form" @submit.prevent="onRegister">
                         <my-input
                             class="rounded-left"
                             v-bind:type="'text'"
@@ -32,7 +32,7 @@
                                 type="submit"
                                 class="btn-primary submit p-3 px-5"
                                 v-bind:disabled="isLoading"
-                                @click="submitHandler"
+                                @click="onRegister"
                             >
                             Register
                             </my-button>
@@ -46,6 +46,7 @@
 
 <script>
     import ValidationError from '@/components/ValidationError.vue'
+    import {mapState} from 'vuex'
     export default {
         data() {
             return {
@@ -60,19 +61,17 @@
             ValidationError
         },
         computed: {
-            isLoading() {
-                return this.$store.state.auth.isLoading
-            },
-            validationErrors() {
-                return this.$store.state.auth.errors
-            }
+            ...mapState({
+                isLoading: state => state.auth.isLoading,
+                validationErrors: state => state.auth.errors
+            })
         },
         methods: {
-            submitHandler(e) {
-                e.preventDefault()
-                this.$store.dispatch('register', this.formData).then(response => {
+            onRegister() {
+                this.$store.dispatch('register', this.formData).then(user => {
+                    console.log(user)
                     this.$router.push({name: "home"})
-                }).catch(error => console.log(error))
+                }).catch(error => console.log(error.response.data))
             }
         }
     }
