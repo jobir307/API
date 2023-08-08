@@ -29,15 +29,6 @@
                 isLoggedIn: getterTypes.isLoggedIn,
                 isAnonymous: getterTypes.isAnonymous
             })
-            // currentUser() {
-            //     return this.$store.getters[getterTypes.currentUser]
-            // },
-            // isLoggedIn() {
-            //     return this.$store.getters[getterTypes.isLoggedIn]
-            // },
-            // isAnonymous() {
-            //     return this.$store.getters[getterTypes.isAnonymous]
-            // }
         }
     }
 </script>

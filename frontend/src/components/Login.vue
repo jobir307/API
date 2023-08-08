@@ -65,12 +65,6 @@
                 isLoading: state => state.auth.isLoading,
                 validationErrors: state => state.auth.errors
             })
-            // isLoading() {
-            //     return this.$store.state.auth.isLoading
-            // },
-            // validationErrors() {
-            //     return this.$store.state.auth.errors
-            // }
         }
     }
 </script>

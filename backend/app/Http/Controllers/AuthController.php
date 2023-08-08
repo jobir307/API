@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Hash;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Auth::user();
+        return response()->json([
+            'user' => $request->user()
+        ]);
     }
 
     public function register(Request $request)

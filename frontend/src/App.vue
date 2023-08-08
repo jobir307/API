@@ -12,7 +12,9 @@
 <script>
 import { RouterView } from 'vue-router' 
   export default {
-    
+    mounted() {
+      this.$store.dispatch('getUser')
+    }
   }
 </script>
 
