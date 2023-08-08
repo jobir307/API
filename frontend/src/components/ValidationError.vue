@@ -1,9 +1,9 @@
 <template>
-    <ul>
+    <ul class="list-group">
         <li 
             v-for='error in errorMessages' 
             :key="error"
-            class="text-danger"    
+            class="list-group-item list-group-item-danger"    
         >
             {{ error }}
         </li>
@@ -19,11 +19,10 @@
         },
         computed: {
             errorMessages() {
-                return [
-                    "email is required",
-                    'password must be at least 8 characters',
-                    'username is required'
-                ]
+                return Object.keys(this.validationErrors).map(name => {
+                    const msg = this.validationErrors[name].join(', ')
+                    return `${name} ${msg}`
+                })
             }
         }
     }

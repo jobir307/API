@@ -7,7 +7,7 @@
                         <span class="fa fa-user" aria-hidden="true"></span>
                     </div>
                     <h3 class="text-center mb-4">Register Form</h3>
-                    <validation-error :validationErrors="validationErrors"/>
+                    <validation-error v-if="validationErrors" :validationErrors="validationErrors"/>
                     <form class="login-form">
                         <my-input
                             class="rounded-left"
