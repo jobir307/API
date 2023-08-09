@@ -3,7 +3,8 @@ import ArticleService from  '@/service/article'
 const state = {
     data: null,
     isLoading: false,
-    error: null
+    error: null,
+    articleDetails: null
 }
 
 const mutations = {
@@ -20,21 +21,47 @@ const mutations = {
     getArticlesFailure(state) {
         state.isLoading = false
         state.data = null
+    },
+    getArticleDetailsStart(state) {
+        state.isLoading = true
+        state.articleDetails = null
+        state.error = null
+    },
+    getArticleDetailsSuccess(state, payload) {
+        state.isLoading = false
+        state.articleDetails = payload
+        state.error = null
+    },
+    getArticleDetailsFailure(state) {
+        state.isLoading = false
+        state.articleDetails = null
     }
 }
 
 const actions = {
     articles(context) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             context.commit('getArticlesStart')
             ArticleService.articles()
                 .then(response => {
                     context.commit('getArticlesSuccess', response.data.articles)
                     resolve(response.data.articles)
                 })
-                .catch(error => {
-                    context.commit('getArticlesFailure', error.response.data.errors)
-                    reject(error.response.data.errors)
+                .catch(() => {
+                    context.commit('getArticlesFailure')
+                })
+        })
+    },
+    getArticleDetails(context, id) {
+        return new Promise((resolve) => {
+            context.commit('getArticleDetailsStart')
+            ArticleService.articleDetails(id)
+                .then(response => {
+                    context.commit('getArticleDetailsSuccess', response.data.article)
+                    resolve(response.data.article)
+                })
+                .catch( () => {
+                    context.commit('getArticleDetailsFailure')
                 })
         })
     }
