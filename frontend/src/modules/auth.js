@@ -52,7 +52,7 @@ const mutations = {
     },
     loginFailure(state, payload) {
         state.isLoading = false
-        state.errors = payload.errors
+        state.errors = payload
         state.isLoggedIn = false 
     },
     currentUserStart(state) {
