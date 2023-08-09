@@ -1,12 +1,12 @@
 import AuthService from "@/service/auth"
-import { setItem } from "@/helpers/persistaneStore"
+import { setItem, removeItem } from "@/helpers/persistaneStore"
 import {getterTypes} from './types'
 
 const state = {
     isLoading: false,
     user: null,
     errors: null,
-    isLoggedIn: false
+    isLoggedIn: null
 }
 
 const getters = {
@@ -67,6 +67,11 @@ const mutations = {
         state.isLoading = false
         state.user = null
         state.isLoggedIn = false
+    },
+    logout(state) {
+        state.user = null
+        state.isLoggedIn = false
+        removeItem("token")
     }
 }
 

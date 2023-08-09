@@ -11,6 +11,7 @@
                 </div>
                 <div v-if="isLoggedIn">
                     <RouterLink :to="{name: 'home'}" class="me-3 py-2 link-body-emphasis text-decoration-none">{{ currentUser.name }}</RouterLink>
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#" @click="logout">Logout</a>
                 </div>
             </nav>
         </div>
@@ -29,6 +30,11 @@
                 isLoggedIn: getterTypes.isLoggedIn,
                 isAnonymous: getterTypes.isAnonymous
             })
+        },
+        methods: {
+            logout() {
+                return this.$store.commit("logout")
+            }
         }
     }
 </script>
