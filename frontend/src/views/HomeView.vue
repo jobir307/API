@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <loader v-if="isLoading" class="offset-md-6" />
+            <loader v-if="isLoading"/>
             <article-card 
                 v-else
                 v-for="article in data" 

@@ -49,8 +49,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show($id)
     {
+        $article  = Article::find($id);
         return response()->json([
             'article' => $article
         ]);

@@ -14,8 +14,4 @@ class Article extends Model
         'body',
         'description'
     ];
-
-    protected $hidden = [
-        'description'
-    ];
 }
